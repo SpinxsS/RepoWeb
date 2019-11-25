@@ -1,0 +1,10 @@
+body{
+    background-color: #f3f3f3;
+  }
+  .MuiGrid-container-1{
+    border: none !important;
+  }
+  
+  .h6Typography{
+    font-size: 1rem;
+  }
