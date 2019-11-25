@@ -6,7 +6,7 @@ import { withRouter, NavLink } from 'react-router-dom';
 import { Menu, Dropdown, Header } from 'semantic-ui-react';
 import { Roles } from 'meteor/alanning:roles';
 
-/** Barra de navegación */
+/** Barra de navegación de la aplicación*/
 class NavBar extends React.Component {
   render() {
     const menuStyle = { marginBottom: '10px' };

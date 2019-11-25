@@ -16,7 +16,7 @@ Meteor.publish('Película', function publish() {
 });
 
 /** This subscription publishes all documents regardless of user, but only if the logged in user is the Admin. */
-Meteor.publish('StuffAdmin', function publish() {
+Meteor.publish('PeliculaAdmin', function publish() {
   if (this.userId && Roles.userIsInRole(this.userId, 'admin')) {
     return Peliculas.find();
   }

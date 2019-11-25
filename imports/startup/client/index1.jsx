@@ -4,7 +4,7 @@ import { Meteor } from 'meteor/meteor';
 import App from '../../ui/layouts/App.jsx';
 import './index.css';
 
-/** Startup the application by rendering the App layout component. */
+/** Inicie la aplicación representando el componente de diseño de la aplicación. */
 Meteor.startup(() => {
-  render(<App />, document.getElementById('root'));  // eslint-disable-line
+  render(<App />, document.getElementById('root')); 
 });

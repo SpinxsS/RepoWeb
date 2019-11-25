@@ -3,6 +3,8 @@ import Modal from '@material-ui/core/Modal';
 import { Grid, Typography, Button, Hidden } from '@material-ui/core';
 import './Style.css'
 
+// Esta clase tiene como propósito darle estilo a lo que es la renderización cuando se obtienen las películas con la api cuando se abre específicamente
+//una película y cuando se cierra.
 window.__MUI_USE_NEXT_TYPOGRAPHY_VARIANTS__ = true
 class SimpleModal extends React.Component {
 
@@ -16,6 +18,7 @@ class SimpleModal extends React.Component {
           open={this.props.abrir}
           onClose={() => this.props.cerrar()}>
           <div>
+            
             <Hidden only={['xs']}>
               <Grid container direction="row" justify="center" style={{ border: "none important", padding: "7em", background: "white", height: '100vh', paddingTop: "4em" }}>
                 <Grid item xs={12} md={6} sm={6}>
@@ -26,7 +29,7 @@ class SimpleModal extends React.Component {
                   </Grid>
                   <Grid container justify="center">
                     <Grid item>
-                      <Button onClick={() => this.props.cerrar()} variant="contained" color="secondary">Close</Button>
+                      <Button onClick={() => this.props.cerrar()} variant="contained" color="secondary">Cerrar</Button>
                     </Grid>
                   </Grid>
                 </Grid>
@@ -46,16 +49,16 @@ class SimpleModal extends React.Component {
                     <strong className="h6Typography">Director: </strong> <br />  {this.props.datos.Director}
                   </Typography>
                   <Typography variant="subtitle1" >
-                    <strong className="h6Typography" >Cast of actors: </strong> <br />  {this.props.datos.Actors}
+                    <strong className="h6Typography" >Actores </strong> <br />  {this.props.datos.Actors}
                   </Typography>
                   <Typography variant="subtitle1" >
-                    <strong className="h6Typography">Film genre: </strong> <br /> {this.props.datos.Genre}
+                    <strong className="h6Typography">Género</strong> <br /> {this.props.datos.Genre}
                   </Typography>
                   <Typography variant="subtitle1" >
-                    <strong className="h6Typography">Release year: </strong> <br />  {this.props.datos.Released}
+                    <strong className="h6Typography">Año de publicación </strong> <br />  {this.props.datos.Released}
                   </Typography>
                   <Typography variant="subtitle1" >
-                    <strong className="h6Typography">Duration: </strong> <br /> {this.props.datos.Runtime}
+                    <strong className="h6Typography">Duración </strong> <br /> {this.props.datos.Runtime}
                   </Typography>
                 </Grid>
               </Grid>
@@ -69,10 +72,10 @@ class SimpleModal extends React.Component {
                     </Grid>
                     <Grid item style={{marginLeft: "1em"}}>
                       <p>
-                        <strong className="h6Typography">Film genre: </strong> <br /> {this.props.datos.Genre}
+                        <strong className="h6Typography">Género </strong> <br /> {this.props.datos.Genre}
                       </p>
                       <p>
-                        <strong className="h6Typography">Duration: </strong> <br /> {this.props.datos.Runtime}
+                        <strong className="h6Typography">Duración: </strong> <br /> {this.props.datos.Runtime}
                       </p>
                     </Grid>
                     
@@ -88,7 +91,7 @@ class SimpleModal extends React.Component {
                   </Grid>
                   <Grid container justify="center">
                     <Grid item>
-                      <Button onClick={() => this.props.cerrar()} variant="contained" color="secondary">Close</Button>
+                      <Button onClick={() => this.props.cerrar()} variant="contained" color="secondary">Cerrar</Button>
                     </Grid>
                   </Grid>
                 </Grid>

@@ -5,23 +5,23 @@ import { Meteor } from 'meteor/meteor';
 import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 
 /**
- * Signin page overrides the form’s submit event and call Meteor’s loginWithPassword().
- * Authentication errors modify the component’s state to be displayed
+ * La página de inicio de sesión anula el evento de envío del formulario y llama a loginWithPassword de Meteor ().
+ * Los errores de autenticación modifican el estado del componente que se mostrará
  */
 export default class Signin extends React.Component {
 
-  /** Initialize component state with properties for login and redirection. */
+  /** Inicializa el estado del componente con propiedades para inicio de sesión y redirección. */
   constructor(props) {
     super(props);
     this.state = { email: '', password: '', error: '', redirectToReferer: false };
   }
 
-  /** Update the form controls each time the user interacts with them. */
+  /** Actualice los controles del formulario cada vez que el usuario interactúa con ellos. */
   handleChange = (e, { name, value }) => {
     this.setState({ [name]: value });
   }
 
-  /** Handle Signin submission using Meteor's account mechanism. */
+  /** Manejar el envío de inicio de sesión utilizando el mecanismo de cuenta de Meteor. */
   submit = () => {
     const { email, password } = this.state;
     Meteor.loginWithPassword(email, password, (err) => {
@@ -33,20 +33,22 @@ export default class Signin extends React.Component {
     });
   }
 
-  /** Render the signin form. */
+  /** Renderiza un formulario de inicio de sesión  */
   render() {
     const { from } = this.props.location.state || { from: { pathname: '/' } };
-    // if correct authentication, redirect to page instead of login screen
+    // Si la autenticación es correcta, redirija a la página en lugar de la pantalla de inicio de sesión
     if (this.state.redirectToReferer) {
       return <Redirect to={from}/>;
     }
-    // Otherwise return the Login form.
+    // De otra manera, retorne de nuevo al login
     return (
+
+      //formulario de login
       <Container>
         <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
           <Grid.Column>
             <Header as="h2" textAlign="center">
-              Login to your account
+              Ingrese a su cuenta
             </Header>
             <Form onSubmit={this.submit}>
               <Segment stacked>
@@ -56,7 +58,7 @@ export default class Signin extends React.Component {
                   iconPosition="left"
                   name="email"
                   type="email"
-                  placeholder="E-mail address"
+                  placeholder="Ingrese su dirección de email"
                   onChange={this.handleChange}
                 />
                 <Form.Input
@@ -64,7 +66,7 @@ export default class Signin extends React.Component {
                   icon="lock"
                   iconPosition="left"
                   name="password"
-                  placeholder="Password"
+                  placeholder="Ingrese su contraseña"
                   type="password"
                   onChange={this.handleChange}
                 />
@@ -72,14 +74,14 @@ export default class Signin extends React.Component {
               </Segment>
             </Form>
             <Message>
-              <Link to="/signup">Click here to Register</Link>
+              <Link to="/signup">Haga click aquí para registrarse</Link>
             </Message>
             {this.state.error === '' ? (
               ''
             ) : (
               <Message
                 error
-                header="Login was not successful"
+                header="Login no exitoso"
                 content={this.state.error}
               />
             )}
@@ -90,7 +92,7 @@ export default class Signin extends React.Component {
   }
 }
 
-/** Ensure that the React Router location object is available in case we need to redirect. */
+/** Se asegura que el objeto de ubicación React Router esté disponible en caso de que necesitemos redirigir.*/
 Signin.propTypes = {
   location: PropTypes.object,
 };

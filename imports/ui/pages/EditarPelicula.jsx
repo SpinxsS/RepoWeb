@@ -5,7 +5,6 @@ import swal from 'sweetalert';
 import AutoForm from 'uniforms-semantic/AutoForm';
 import TextField from 'uniforms-semantic/TextField';
 import NumField from 'uniforms-semantic/NumField';
-import SelectField from 'uniforms-semantic/SelectField';
 import SubmitField from 'uniforms-semantic/SubmitField';
 import HiddenField from 'uniforms-semantic/HiddenField';
 import ErrorsField from 'uniforms-semantic/ErrorsField';
@@ -14,23 +13,25 @@ import { withTracker } from 'meteor/react-meteor-data';
 import PropTypes from 'prop-types';
 import 'uniforms-bridge-simple-schema-2'; // required for Uniforms
 
-/** Renders the Page for editing a single document. */
-class EditStuff extends React.Component {
+/** Esta clase tiene el propósito construir la lógica para poder editar una película */
+class EditarPelicula extends React.Component {
 
-  /** On successful submit, insert the data. */
+  /** En el envío exitoso, inserte los datos. */
   submit(data) {
     const { titulo, anoEstreno, genero, duracion, calificacion, poster, actoresPrincipales, sinopsis, resena, director, _id } = data;
     Peliculas.update(_id, { $set: { titulo, anoEstreno, genero, duracion, calificacion, poster, actoresPrincipales, sinopsis, resena, director } }, (error) => (error ?
       swal('Error', error.message, 'error') :
-      swal('Success', 'Item updated successfully', 'success')));
+      swal('Success', 'Item actualizado correctamente', 'success')));
   }
 
-  /** If the subscription(s) have been received, render the page, otherwise show a loading icon. */
+  /**  
   render() {
     return (this.props.ready) ? this.renderPage() : <Loader active>Getting data</Loader>;
   }
+*/
 
-  /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
+
+  /** Renderiza el formulario. https://github.com/vazco/uniforms */
   renderPage() {
     return (
         <Grid container centered>
@@ -59,21 +60,21 @@ class EditStuff extends React.Component {
   }
 }
 
-/** Require the presence of a Stuff document in the props object. Uniforms adds 'model' to the props, which we use. */
-EditStuff.propTypes = {
+/** Requerir la presencia de un documento película. Agrega 'modelo' a los accesorios, que usamos. */
+EditarPelicula.propTypes = {
   doc: PropTypes.object,
   model: PropTypes.object,
   ready: PropTypes.bool.isRequired,
 };
 
-/** withTracker connects Meteor data to React components. https://guide.meteor.com/react.html#using-withTracker */
+/** withTracker conecta los datos de Meteor a los componentes React. https://guide.meteor.com/react.html#using-withTracker */
 export default withTracker(({ match }) => {
-  // Get the documentID from the URL field. See imports/ui/layouts/App.jsx for the route containing :_id.
+  // Obtenga el documentID del campo URL. Consulte import / ui / layouts / App.jsx para ver la ruta que contiene: _id.
   const documentId = match.params._id;
-  // Get access to Stuff documents.
+  // Obtenga acceso a los documentos de Pelicula.
   const subscription = Meteor.subscribe('Película');
   return {
     doc: Peliculas.findOne(documentId),
     ready: subscription.ready(),
   };
-})(EditStuff);
+})(EditarPelicula);

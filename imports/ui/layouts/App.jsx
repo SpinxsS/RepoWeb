@@ -6,18 +6,18 @@ import { Roles } from 'meteor/alanning:roles';
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import NavBar from '../components/NavBar';
 import Footer from '../components/Footer';
-import Landing from '../pages/Landing';
-import ListStuff from '../pages/ListStuff';
-import ListStuffAdmin from '../pages/ListStuffAdmin';
-import AddStuff from '../pages/AddStuff';
-import EditStuff from '../pages/EditStuff';
+import Home from '../pages/Home';
+import ListarPelicula from '../pages/ListarPelicula';
+import ListaPeliculasAdmin from '../pages/ListaPeliculasAdmin';
+import AgregarPelicula from '../pages/AgregarPelicula';
+import EditarPelicula from '../pages/EditarPelicula';
 import NotFound from '../pages/NotFound';
 import Signin from '../pages/Signin';
 import Signup from '../pages/Signup';
 import Signout from '../pages/Signout';
 import Peliculas from '../pages/Peliculas';
 
-/** Top-level layout component for this application. Called in imports/startup/client/startup.jsx. */
+/** clase principal de la aplicación donde importamos muchos de los componentes y utilizamos rutas para especificar cada vista */
 class App extends React.Component {
   render() {
     return (
@@ -25,15 +25,14 @@ class App extends React.Component {
           <div>
             <NavBar/>
             <Switch>
-              <Route exact path="/" component={Landing}/>
+              <Route exact path="/" component={Home}/>
               <Route path="/signin" component={Signin}/>
               <Route path="/signup" component={Signup}/>
-              <ProtectedRoute path="/listar" component={ListStuff}/>
-              <ProtectedRoute path="/agregar" component={AddStuff}/>
-              <ProtectedRoute path="/edit/:_id" component={EditStuff}/>
+              <ProtectedRoute path="/listar" component={ListarPelicula}/>
+              <ProtectedRoute path="/agregar" component={AgregarPelicula}/>
+              <ProtectedRoute path="/edit/:_id" component={EditarPelicula}/>
               <ProtectedRoute path="/buscar" component={Peliculas}/>
-
-              <AdminProtectedRoute path="/admin" component={ListStuffAdmin}/>
+              <AdminProtectedRoute path="/admin" component={ListaPeliculasAdmin}/>
               <ProtectedRoute path="/signout" component={Signout}/>
               <Route component={NotFound}/>
             </Switch>
@@ -45,8 +44,7 @@ class App extends React.Component {
 }
 
 /**
- * ProtectedRoute (see React Router v4 sample)
- * Checks for Meteor login before routing to the requested page, otherwise goes to signin page.
+ * Comprueba el inicio de sesión de Meteor antes de enrutar a la página solicitada, de lo contrario va a la página de inicio de sesión.
  * @param {any} { component: Component, ...rest }
  */
 const ProtectedRoute = ({ component: Component, ...rest }) => (
@@ -63,8 +61,7 @@ const ProtectedRoute = ({ component: Component, ...rest }) => (
 );
 
 /**
- * AdminProtectedRoute (see React Router v4 sample)
- * Checks for Meteor login and admin role before routing to the requested page, otherwise goes to signin page.
+ * Comprueba el inicio de sesión de Meteor antes de enrutar a la página solicitada, de lo contrario va a la página de inicio de sesión.
  * @param {any} { component: Component, ...rest }
  */
 const AdminProtectedRoute = ({ component: Component, ...rest }) => (
@@ -81,13 +78,13 @@ const AdminProtectedRoute = ({ component: Component, ...rest }) => (
     />
 );
 
-/** Require a component and location to be passed to each ProtectedRoute. */
+/** Requiere que se pase un componente y una ruta a cada ProtectedRoute. */
 ProtectedRoute.propTypes = {
   component: PropTypes.func.isRequired,
   location: PropTypes.object,
 };
 
-/** Require a component and location to be passed to each AdminProtectedRoute. */
+/** Requiere que se pase un componente y una ruta a cada ProtectedRoute. */
 AdminProtectedRoute.propTypes = {
   component: PropTypes.func.isRequired,
   location: PropTypes.object,

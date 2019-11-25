@@ -7,6 +7,8 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Typography from '@material-ui/core/Typography';
 import { Button, Grid } from '@material-ui/core'
 
+
+//Coloca el estilo a la card en donde se muestran las películas de la api
 const styles = theme => ({
   card: {
     display: 'flex',

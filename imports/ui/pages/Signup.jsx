@@ -5,21 +5,21 @@ import { Container, Form, Grid, Header, Message, Segment } from 'semantic-ui-rea
 import { Accounts } from 'meteor/accounts-base';
 
 /**
- * Signup component is similar to signin component, but we create a new user instead.
+ * El componente de registro es similar al componente de inicio de sesión, pero en su lugar creamos un nuevo usuario.
  */
 class Signup extends React.Component {
-  /** Initialize state fields. */
+
   constructor(props) {
     super(props);
     this.state = { email: '', password: '', error: '', redirectToReferer: false };
   }
 
-  /** Update the form controls each time the user interacts with them. */
+  /** Actualice los controles del formulario cada vez que el usuario interactúa con ellos. */
   handleChange = (e, { name, value }) => {
     this.setState({ [name]: value });
   }
 
-  /** Handle Signup submission. Create user account and a profile entry, then redirect to the home page. */
+  /** Cree una cuenta de usuario y una entrada de perfil, luego redirija a la página de inicio. */
   submit = () => {
     const { email, password } = this.state;
     Accounts.createUser({ email, username: email, password }, (err) => {
@@ -31,10 +31,9 @@ class Signup extends React.Component {
     });
   }
 
-  /** Display the signup form. Redirect to add page after successful registration and login. */
+  /** Mostrar el formulario de registro. Redireccionar a la ruta de agregar después de un registro exitoso e iniciar sesión.*/
   render() {
-    const { from } = this.props.location.state || { from: { pathname: '/add' } };
-    // if correct authentication, redirect to from: page instead of signup screen
+    const { from } = this.props.location.state || { from: { pathname: '/agregar' } };
     if (this.state.redirectToReferer) {
       return <Redirect to={from}/>;
     }
@@ -43,7 +42,7 @@ class Signup extends React.Component {
         <Grid textAlign="center" verticalAlign="middle" centered columns={2}>
           <Grid.Column>
             <Header as="h2" textAlign="center">
-              Register your account
+              Registra tu cuenta
             </Header>
             <Form onSubmit={this.submit}>
               <Segment stacked>
@@ -53,7 +52,7 @@ class Signup extends React.Component {
                   iconPosition="left"
                   name="email"
                   type="email"
-                  placeholder="E-mail address"
+                  placeholder="Ingrese su correo"
                   onChange={this.handleChange}
                 />
                 <Form.Input
@@ -61,7 +60,7 @@ class Signup extends React.Component {
                   icon="lock"
                   iconPosition="left"
                   name="password"
-                  placeholder="Password"
+                  placeholder="Ingrese su contraseña"
                   type="password"
                   onChange={this.handleChange}
                 />
@@ -69,7 +68,7 @@ class Signup extends React.Component {
               </Segment>
             </Form>
             <Message>
-              Already have an account? Login <Link to="/signin">here</Link>
+            ¿Ya tienes una cuenta? Iniciar sesión <Link to="/signin">here</Link>
             </Message>
             {this.state.error === '' ? (
               ''
@@ -87,7 +86,7 @@ class Signup extends React.Component {
   }
 }
 
-/** Ensure that the React Router location object is available in case we need to redirect. */
+/** Se asegura que el objeto de ubicación React Router esté disponible en caso de que necesitemos redirigir */
 Signup.propTypes = {
   location: PropTypes.object,
 };

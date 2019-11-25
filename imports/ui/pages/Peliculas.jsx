@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import InputSearch from './InputSearch';
+import BarraBusqueda from './BarraBusqueda';
 import CardPelicula from './CardPelicula';
 import { Grid } from '@material-ui/core';
 import SimpleModalWrapped from './Modal';
 
+//Clase de películas que utiliza una api de omdapi , la cual trae las películas y las muestra
 class Peliculas extends Component {
   constructor() {
     super();
@@ -11,6 +12,7 @@ class Peliculas extends Component {
       value: '',
       peliculas: [],
       pelicula: [],
+      genres: [],
       open: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -23,6 +25,7 @@ class Peliculas extends Component {
     this.setState({ value: event.target.value });
   }
 
+  // método para obtener todo el arreglo de las películas del api
   handleSubmit(event) {
     console.log('ingresado en input: ' + this.state.value);
     fetch(`https://www.omdbapi.com/?apikey=a076b37c&s=${this.state.value}`)
@@ -31,9 +34,22 @@ class Peliculas extends Component {
       .catch(e => console.log(e))
     event.preventDefault();
   }
+
+  obtenerGeneros(event) {
+    console.log('ingresado en input: ' + this.state.value);
+    fetch(`https://www.omdbapi.com/?apikey=a076b37c&s=${this.state.value}`)
+      .then(res => res.json())
+      .then(res => this.setState({ genres: res.genres }))
+      .catch(e => console.log(e))
+    event.preventDefault();
+  }
+
+    //Cuando estamos mostrando una sola película y le damos al botón cerrar
   cerrarModal() {
     this.setState({ open: false, pelicula: [] })
   }
+
+  //código que se trae sólo la película específica cuando le damos click a una película
   abrirModal(e) {
     fetch(`https://www.omdbapi.com/?apikey=a076b37c&i=${e.imdbID}`)
       .then(res => res.json())
@@ -42,6 +58,8 @@ class Peliculas extends Component {
     this.setState({ open: !this.state.open })
 
   }
+
+  //método para listar todas las películas que se trae el api, en caso de no encontrar alguna película retorna un mensaje.
   listMovies() {
     return (
       this.state.peliculas === undefined ? <div><h2>Ups! no encontramos nada con ese nombre</h2></div> : (
@@ -56,11 +74,19 @@ class Peliculas extends Component {
     )
   }
 
+  obtenerDatos(){
+    datos=this.state.peliculas;
+    console.log(datos+ "imprime algo")
+    return datos;
+  }
+
   render() {
     console.log('open: ' + this.state.open)
     return (
       <div>
-        <InputSearch valor={this.state.value} change={this.handleChange} submits={this.handleSubmit} />
+        
+        <BarraBusqueda valor={this.state.value} change={this.handleChange} submits={this.handleSubmit}  genres={this.obtenerGeneros}  />
+
         <Grid container direction="row" justify="flex-start" alignItems="center" >
           {
             this.listMovies()

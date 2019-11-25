@@ -12,18 +12,6 @@ import { Meteor } from 'meteor/meteor';
 import 'uniforms-bridge-simple-schema-2'; // required for Uniforms
 import SimpleSchema from 'simpl-schema';
 
-/** Create a schema to specify the structure of the data to appear in the form. */
-const formSchema = new SimpleSchema({
-  name: String,
-  quantity: Number,
-  condition: {
-    type: String,
-    allowedValues: ['excellent', 'good', 'fair', 'poor'],
-    defaultValue: 'good',
-  },
-});
-
-
 const peliculaEsquema = new SimpleSchema({
  
   titulo: String,
@@ -38,10 +26,11 @@ const peliculaEsquema = new SimpleSchema({
   director: String,
  });
 
-/** Renders the Page for adding a document. */
-class AddStuff extends React.Component {
 
-  /** On submit, insert the data. */
+// Esta clase tiene el propósito construir la lógica para poder agregar una película
+class AgregarPelicula extends React.Component {
+
+  /** Botón de sumbit para agregar películas */
   submit(data, formRef) {
     const { titulo, anoEstreno, genero, duracion, calificacion, poster, actoresPrincipales, sinopsis, resena, director   } = data;
     const owner = Meteor.user().username;
@@ -50,13 +39,13 @@ class AddStuff extends React.Component {
         if (error) {
           swal('Error', error.message, 'error');
         } else {
-          swal('Success', 'Item added successfully', 'success');
+          swal('Success', 'Item añadido correctamente', 'success');
           formRef.reset();
         }
       });
   }
 
-  /** Render the form. Use Uniforms: https://github.com/vazco/uniforms */
+  /**  Renderiza el formulario.  https://github.com/vazco/uniforms */
   render() {
     let fRef = null;
     return (
@@ -85,4 +74,4 @@ class AddStuff extends React.Component {
   }
 }
 
-export default AddStuff;
+export default AgregarPelicula;
